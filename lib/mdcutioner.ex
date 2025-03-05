@@ -26,6 +26,11 @@ defmodule Mdcutioner do
     Code.eval_string(code)
   end
 
+  def execute(module, function, args) do
+    module = String.to_existing_atom("Elixir.#{module}")
+    apply(module, function, args)
+  end
+
   def recompile(file) do
     Code.compile_file(file)
   end
