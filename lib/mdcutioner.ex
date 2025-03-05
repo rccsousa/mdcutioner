@@ -26,6 +26,15 @@ defmodule Mdcutioner do
     Code.eval_string(code)
   end
 
+  def recompile(file) do
+    Code.compile_file(file)
+  end
+
+  def save_as_module(code, filename) do
+    File.write!("lib/#{filename}.ex", code)
+    recompile("lib/#{filename}.ex")
+  end
+
   def example do
     """
     ```elixir
@@ -37,6 +46,6 @@ defmodule Mdcutioner do
     ```
     """
     |> md_parse()
-    |> execute()
+    |> save_as_module("mathmaticious")
   end
 end
